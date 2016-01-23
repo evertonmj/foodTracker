@@ -39,7 +39,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        
+        //imagem selecionada
         let selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         
         photoImageView.image = selectedImage
