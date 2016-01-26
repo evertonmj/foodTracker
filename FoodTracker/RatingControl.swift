@@ -15,7 +15,9 @@ class RatingControl: UIView {
             setNeedsLayout()
         }
     }
+
     var ratingButtons = [UIButton]()
+    
     let spacing = 5
     let stars = 5
     
@@ -35,6 +37,7 @@ class RatingControl: UIView {
             button.adjustsImageWhenHighlighted = false
             
             button.addTarget(self, action: "ratingButtonTapped:", forControlEvents: .TouchDown)
+            
             ratingButtons += [button]
             addSubview(button)
         }
@@ -43,31 +46,31 @@ class RatingControl: UIView {
     override func intrinsicContentSize() -> CGSize {
         let buttonSize = Int(frame.size.height)
 
-        let width = (buttonSize + spacing) * 1
+        let width = (buttonSize + spacing) * stars
         
         return CGSize(width: width, height: buttonSize)
     }
     
     override func layoutSubviews() {
         let buttonSize = Int(frame.size.height)
-        let spacing = 5
+
         var buttonFrame = CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)
         for (index, button) in ratingButtons.enumerate() {
             buttonFrame.origin.x = CGFloat(index * (buttonSize + spacing))
             button.frame = buttonFrame
         }
         
-        
+        updateButtonSelectionStates()
     }
     
     // MARK: Button Action
     func ratingButtonTapped(button: UIButton) {
         rating = ratingButtons.indexOf(button)! + 1
         
-        updateButtonSelecionStates()
+        updateButtonSelectionStates()
     }
 
-    func updateButtonSelecionStates() {
+    func updateButtonSelectionStates() {
         for (index, button) in ratingButtons.enumerate() {
             button.selected = index < rating
         }
